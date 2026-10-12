@@ -1,0 +1,115 @@
+======================================================================
+EDA-ОТЧЁТ: АНАЛИЗ ПРИРОДЫ ПРОПУСКОВ
+Датасет: Horse Colic | Строк: 299 | Колонок: 28
+======================================================================
+
+----------------------------------------------------------------------
+ОБЩАЯ СВОДКА ПРОПУСКОВ
+----------------------------------------------------------------------
+Колонок с пропусками: 19 из 28
+Всего пропущенных значений: 1602
+
+  nasogastric_reflux_ph                246  ( 82.3%)
+  abdomo_protein                       198  ( 66.2%)
+  abdomo_appearance                    165  ( 55.2%)
+  abdomen                              118  ( 39.5%)
+  nasogastric_reflux                   106  ( 35.5%)
+  nasogastric_tube                     104  ( 34.8%)
+  rectal_exam_feces                    102  ( 34.1%)
+  peripheral_pulse                      69  ( 23.1%)
+  rectal_temp                           60  ( 20.1%)
+  respiratory_rate                      58  ( 19.4%)
+  temp_of_extremities                   56  ( 18.7%)
+  abdominal_distention                  56  ( 18.7%)
+  pain                                  55  ( 18.4%)
+  mucous_membrane                       47  ( 15.7%)
+  peristalsis                           44  ( 14.7%)
+  total_protein                         33  ( 11.0%)
+  capillary_refill_time                 32  ( 10.7%)
+  packed_cell_volume                    29  (  9.7%)
+  pulse                                 24  (  8.0%)
+
+----------------------------------------------------------------------
+КЛАССИФИКАЦИЯ КАЖДОГО ПРИЗНАКА
+----------------------------------------------------------------------
+MCAR_share_sig — доля признаков, распределения которых различаются (чем меньше, тем ближе к MCAR)
+MAR_AUC       — AUC предсказания факта пропуска по другим признакам (без target)
+MNAR_p        — p-value связи факта пропуска с целевой переменной
+
+[MAR     ] rectal_temp                         miss= 20.1%  MCAR_share=0.1  MAR_AUC=0.658  MNAR_p=0.009
+[MAR     ] pulse                               miss=  8.0%  MCAR_share=0.25  MAR_AUC=0.661  MNAR_p=0.0396
+[неясно  ] respiratory_rate                    miss= 19.4%  MCAR_share=0.1  MAR_AUC=0.526  MNAR_p=0.3944
+[MCAR    ] temp_of_extremities                 miss= 18.7%  MCAR_share=0.0  MAR_AUC=None  MNAR_p=0.5028
+[MCAR    ] peripheral_pulse                    miss= 23.1%  MCAR_share=0.09  MAR_AUC=None  MNAR_p=0.7495
+[неясно  ] mucous_membrane                     miss= 15.7%  MCAR_share=0.2  MAR_AUC=None  MNAR_p=0.8518
+[MCAR    ] capillary_refill_time               miss= 10.7%  MCAR_share=0.0  MAR_AUC=None  MNAR_p=0.5726
+[MCAR    ] pain                                miss= 18.4%  MCAR_share=0.09  MAR_AUC=None  MNAR_p=0.745
+[неясно  ] peristalsis                         miss= 14.7%  MCAR_share=0.27  MAR_AUC=None  MNAR_p=0.3279
+[неясно  ] abdominal_distention                miss= 18.7%  MCAR_share=0.1  MAR_AUC=None  MNAR_p=0.5082
+[MCAR    ] nasogastric_tube                    miss= 34.8%  MCAR_share=0.09  MAR_AUC=None  MNAR_p=0.7905
+[неясно  ] nasogastric_reflux                  miss= 35.5%  MCAR_share=0.2  MAR_AUC=None  MNAR_p=0.4352
+[MAR     ] nasogastric_reflux_ph               miss= 82.3%  MCAR_share=0.2  MAR_AUC=0.68  MNAR_p=0.0494
+[MCAR    ] rectal_exam_feces                   miss= 34.1%  MCAR_share=0.09  MAR_AUC=None  MNAR_p=0.2145
+[неясно  ] abdomen                             miss= 39.5%  MCAR_share=0.18  MAR_AUC=None  MNAR_p=0.1933
+[MAR     ] packed_cell_volume                  miss=  9.7%  MCAR_share=0.14  MAR_AUC=0.816  MNAR_p=0.0897
+[MAR     ] total_protein                       miss= 11.0%  MCAR_share=0.11  MAR_AUC=0.712  MNAR_p=0.04
+[MCAR    ] abdomo_appearance                   miss= 55.2%  MCAR_share=0.09  MAR_AUC=None  MNAR_p=0.2783
+[MAR     ] abdomo_protein                      miss= 66.2%  MCAR_share=0.1  MAR_AUC=0.752  MNAR_p=0.0021
+
+----------------------------------------------------------------------
+ИТОГОВАЯ ТАБЛИЦА
+----------------------------------------------------------------------
+               column  miss_%  MCAR_share_sig  MAR_AUC  MNAR_p verdict
+nasogastric_reflux_ph    82.3            0.20    0.680  0.0494     MAR
+       abdomo_protein    66.2            0.10    0.752  0.0021     MAR
+    abdomo_appearance    55.2            0.09      NaN  0.2783    MCAR
+              abdomen    39.5            0.18      NaN  0.1933  неясно
+   nasogastric_reflux    35.5            0.20      NaN  0.4352  неясно
+     nasogastric_tube    34.8            0.09      NaN  0.7905    MCAR
+    rectal_exam_feces    34.1            0.09      NaN  0.2145    MCAR
+     peripheral_pulse    23.1            0.09      NaN  0.7495    MCAR
+          rectal_temp    20.1            0.10    0.658  0.0090     MAR
+     respiratory_rate    19.4            0.10    0.526  0.3944  неясно
+  temp_of_extremities    18.7            0.00      NaN  0.5028    MCAR
+ abdominal_distention    18.7            0.10      NaN  0.5082  неясно
+                 pain    18.4            0.09      NaN  0.7450    MCAR
+      mucous_membrane    15.7            0.20      NaN  0.8518  неясно
+          peristalsis    14.7            0.27      NaN  0.3279  неясно
+        total_protein    11.0            0.11    0.712  0.0400     MAR
+capillary_refill_time    10.7            0.00      NaN  0.5726    MCAR
+   packed_cell_volume     9.7            0.14    0.816  0.0897     MAR
+                pulse     8.0            0.25    0.661  0.0396     MAR
+
+----------------------------------------------------------------------
+РЕКОМЕНДАЦИИ ПО ОБРАБОТКЕ
+----------------------------------------------------------------------
+  nasogastric_reflux_ph               [MAR   ]  82.3%  →  заполнить MICE/по модели + создать индикатор пропуска | ВНИМАНИЕ: >70% пропусков, рассмотреть удаление колонки
+  abdomo_protein                      [MAR   ]  66.2%  →  заполнить MICE/по модели + создать индикатор пропуска
+  abdomo_appearance                   [MCAR  ]  55.2%  →  можно заполнить медианой/модой или удалить строки
+  abdomen                             [неясно]  39.5%  →  проанализировать вручную
+  nasogastric_reflux                  [неясно]  35.5%  →  проанализировать вручную
+  nasogastric_tube                    [MCAR  ]  34.8%  →  можно заполнить медианой/модой или удалить строки
+  rectal_exam_feces                   [MCAR  ]  34.1%  →  можно заполнить медианой/модой или удалить строки
+  peripheral_pulse                    [MCAR  ]  23.1%  →  можно заполнить медианой/модой или удалить строки
+  rectal_temp                         [MAR   ]  20.1%  →  заполнить MICE/по модели + создать индикатор пропуска
+  respiratory_rate                    [неясно]  19.4%  →  проанализировать вручную
+  temp_of_extremities                 [MCAR  ]  18.7%  →  можно заполнить медианой/модой или удалить строки
+  abdominal_distention                [неясно]  18.7%  →  проанализировать вручную
+  pain                                [MCAR  ]  18.4%  →  можно заполнить медианой/модой или удалить строки
+  mucous_membrane                     [неясно]  15.7%  →  проанализировать вручную
+  peristalsis                         [неясно]  14.7%  →  проанализировать вручную
+  total_protein                       [MAR   ]  11.0%  →  заполнить MICE/по модели + создать индикатор пропуска
+  capillary_refill_time               [MCAR  ]  10.7%  →  можно заполнить медианой/модой или удалить строки
+  packed_cell_volume                  [MAR   ]   9.7%  →  заполнить MICE/по модели + создать индикатор пропуска
+  pulse                               [MAR   ]   8.0%  →  заполнить MICE/по модели + создать индикатор пропуска
+
+----------------------------------------------------------------------
+СВОДКА ПО ТИПАМ ПРОПУСКОВ
+----------------------------------------------------------------------
+  MCAR      : 7
+  MAR       : 6
+  неясно    : 6
+
+======================================================================
+Отчёт сохранён в файл: horse_colic_eda_report.txt
+======================================================================

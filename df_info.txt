@@ -1,0 +1,34 @@
+<class 'pandas.DataFrame'>
+Index: 239 entries, 164 to 20
+Data columns (total 27 columns):
+ #   Column                 Non-Null Count  Dtype  
+---  ------                 --------------  -----  
+ 0   hospital_number        239 non-null    int64  
+ 1   rectal_temp            187 non-null    float64
+ 2   pulse                  220 non-null    float64
+ 3   respiratory_rate       192 non-null    float64
+ 4   temp_of_extremities    196 non-null    float64
+ 5   peripheral_pulse       186 non-null    float64
+ 6   nasogastric_reflux_ph  37 non-null     float64
+ 7   packed_cell_volume     217 non-null    float64
+ 8   total_protein          212 non-null    float64
+ 9   abdomo_protein         82 non-null     float64
+ 10  lesion_1               239 non-null    int64  
+ 11  lesion_2               239 non-null    int64  
+ 12  lesion_3               239 non-null    int64  
+ 13  surgery                239 non-null    int64  
+ 14  age                    239 non-null    int64  
+ 15  mucous_membrane        239 non-null    int64  
+ 16  capillary_refill_time  239 non-null    int64  
+ 17  pain                   239 non-null    int64  
+ 18  peristalsis            239 non-null    int64  
+ 19  abdominal_distention   239 non-null    int64  
+ 20  nasogastric_tube       239 non-null    int64  
+ 21  nasogastric_reflux     239 non-null    int64  
+ 22  rectal_exam_feces      239 non-null    int64  
+ 23  abdomen                239 non-null    int64  
+ 24  abdomo_appearance      239 non-null    int64  
+ 25  surgical_lesion        239 non-null    int64  
+ 26  cp_data                239 non-null    int64  
+dtypes: float64(9), int64(18)
+memory usage: 52.3 KB

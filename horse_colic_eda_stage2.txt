@@ -1,0 +1,311 @@
+======================================================================
+EDA ЭТАП 2: РАСПРЕДЕЛЕНИЯ, СВЯЗИ, ТЕСТЫ, PCA
+Датасет: Horse Colic | Строк: 299 | Колонок: 28
+======================================================================
+
+======================================================================
+1. ТИПЫ ПРИЗНАКОВ
+======================================================================
+Целевая переменная: outcome
+Числовых признаков: 11
+  - hospital_number
+  - rectal_temp
+  - pulse
+  - respiratory_rate
+  - nasogastric_reflux_ph
+  - packed_cell_volume
+  - total_protein
+  - abdomo_protein
+  - lesion_1
+  - lesion_2
+  - lesion_3
+Категориальных признаков: 16
+  - surgery
+  - age
+  - temp_of_extremities
+  - peripheral_pulse
+  - mucous_membrane
+  - capillary_refill_time
+  - pain
+  - peristalsis
+  - abdominal_distention
+  - nasogastric_tube
+  - nasogastric_reflux
+  - rectal_exam_feces
+  - abdomen
+  - abdomo_appearance
+  - surgical_lesion
+  - cp_data
+
+======================================================================
+2. ОДНОМЕРНЫЙ АНАЛИЗ: РАСПРЕДЕЛЕНИЯ
+======================================================================
+
+--- Числовые признаки: описательные статистики ---
+                       count         mean          std       min       25%       50%       75%        max    skew  kurtosis
+hospital_number        299.0  1087732.702  1532031.582  518476.0  528904.0  530301.0  534736.0  5305629.0   2.394     3.758
+rectal_temp            299.0       38.175        0.656      35.4      37.9      38.2      38.5       40.8   0.005     2.822
+pulse                  299.0       71.358       27.555      30.0      48.5      64.0      88.0      184.0   1.120     1.091
+respiratory_rate       299.0       29.401       16.001       8.0      20.0      25.0      34.5       96.0   1.963     4.456
+nasogastric_reflux_ph  299.0        4.948        0.836       1.0       5.0       5.0       5.0        7.5  -1.658     8.512
+packed_cell_volume     299.0       46.181        9.923      23.0      39.0      45.0      50.0       75.0   0.769     0.442
+total_protein          299.0       22.423       26.336       3.3       6.6       7.5      52.0       89.0   1.190    -0.422
+abdomo_protein         299.0        2.550        1.193       0.1       2.3       2.3       2.3       10.1   3.241    13.969
+lesion_1               299.0     3659.709     5408.472       0.0    2111.5    2322.0    3209.0    41110.0   4.338    21.262
+lesion_2               299.0       90.528      650.637       0.0       0.0       0.0       0.0     7111.0   8.299    74.920
+lesion_3               299.0        7.388      127.750       0.0       0.0       0.0       0.0     2209.0  17.292   299.000
+  [график сохранён: plots/01_histograms_numeric.png]
+  [график сохранён: plots/02_boxplots_numeric.png]
+
+--- Категориальные признаки: распределение значений ---
+
+surgery:
+  yes                             180  ( 60.2%)
+  no                              119  ( 39.8%)
+
+age:
+  adult                           275  ( 92.0%)
+  young                            24  (  8.0%)
+
+temp_of_extremities:
+  cool                            164  ( 54.8%)
+  normal                           78  ( 26.1%)
+  warm                             30  ( 10.0%)
+  cold                             27  (  9.0%)
+
+peripheral_pulse:
+  normal                          183  ( 61.2%)
+  reduced                         103  ( 34.4%)
+  absent                            8  (  2.7%)
+  increased                         5  (  1.7%)
+
+mucous_membrane:
+  normal_pink                     126  ( 42.1%)
+  pale_pink                        57  ( 19.1%)
+  pale_cyanotic                    41  ( 13.7%)
+  bright_pink                      30  ( 10.0%)
+  bright_red                       25  (  8.4%)
+  dark_cyanotic                    20  (  6.7%)
+
+capillary_refill_time:
+  less_3_sec                      219  ( 73.2%)
+  more_3_sec                       78  ( 26.1%)
+  3                                 2  (  0.7%)
+
+pain:
+  mild_pain                       122  ( 40.8%)
+  depressed                        59  ( 19.7%)
+  extreme_pain                     42  ( 14.0%)
+  severe_pain                      38  ( 12.7%)
+  alert                            38  ( 12.7%)
+
+peristalsis:
+  hypomotile                      171  ( 57.2%)
+  absent                           73  ( 24.4%)
+  hypermotile                      39  ( 13.0%)
+  normal                           16  (  5.4%)
+
+abdominal_distention:
+  none                            131  ( 43.8%)
+  slight                           65  ( 21.7%)
+  moderate                         65  ( 21.7%)
+  severe                           38  ( 12.7%)
+
+nasogastric_tube:
+  slight                          205  ( 68.6%)
+  none                             71  ( 23.7%)
+  significant                      23  (  7.7%)
+
+nasogastric_reflux:
+  none                            225  ( 75.3%)
+  more_1_liter                     39  ( 13.0%)
+  less_1_liter                     35  ( 11.7%)
+
+rectal_exam_feces:
+  absent                          181  ( 60.5%)
+  normal                           57  ( 19.1%)
+  decreased                        48  ( 16.1%)
+  increased                        13  (  4.3%)
+
+abdomen:
+  distend_large                   196  ( 65.6%)
+  distend_small                    43  ( 14.4%)
+  normal                           28  (  9.4%)
+  other                            19  (  6.4%)
+  firm                             13  (  4.3%)
+
+abdomo_appearance:
+  cloudy                          212  ( 70.9%)
+  serosanguious                    46  ( 15.4%)
+  clear                            41  ( 13.7%)
+
+surgical_lesion:
+  yes                             190  ( 63.5%)
+  no                              109  ( 36.5%)
+
+cp_data:
+  no                              200  ( 66.9%)
+  yes                              99  ( 33.1%)
+
+--- Целевая переменная: outcome ---
+  lived                           178  ( 59.5%)
+  died                             77  ( 25.8%)
+  euthanized                       44  ( 14.7%)
+  [график сохранён: plots/03_target_distribution.png]
+
+======================================================================
+3. ДВУМЕРНЫЙ АНАЛИЗ: КОРРЕЛЯЦИИ
+======================================================================
+  [график сохранён: plots/04_correlation_heatmap.png]
+
+--- Сильные корреляции (|Spearman r| > 0.6) ---
+  нет пар с |r| > 0.6
+
+======================================================================
+4. СВЯЗЬ ПРИЗНАКОВ С ЦЕЛЕВОЙ ПЕРЕМЕННОЙ
+======================================================================
+
+--- Числовые признаки vs outcome (Kruskal-Wallis) ---
+              feature  p_value    stat  p_adj  significant
+   packed_cell_volume   0.0000 43.4768 0.0000         True
+                pulse   0.0000 43.1363 0.0000         True
+        total_protein   0.0000 28.4124 0.0000         True
+             lesion_1   0.0000 27.9048 0.0000         True
+       abdomo_protein   0.0000 27.7065 0.0000         True
+      hospital_number   0.0067 10.0075 0.0123         True
+     respiratory_rate   0.0673  5.3957 0.1058        False
+             lesion_2   0.2615  2.6825 0.3596        False
+nasogastric_reflux_ph   0.3689  1.9947 0.4508        False
+          rectal_temp   0.4813  1.4626 0.5294        False
+             lesion_3   0.7119  0.6798 0.7119        False
+  [график сохранён: plots/05_top_features_by_outcome.png]
+
+--- Категориальные признаки vs outcome (chi2) ---
+              feature    chi2  p_value  cramers_v  p_adj  significant
+                 pain 66.9303   0.0000     0.3345 0.0000         True
+      surgical_lesion 33.4966   0.0000     0.3347 0.0000         True
+     peripheral_pulse 41.7881   0.0000     0.2643 0.0000         True
+      mucous_membrane 47.3051   0.0000     0.2813 0.0000         True
+  temp_of_extremities 38.4340   0.0000     0.2535 0.0000         True
+capillary_refill_time 32.7371   0.0000     0.2340 0.0000         True
+ abdominal_distention 34.2994   0.0000     0.2395 0.0000         True
+          peristalsis 32.0944   0.0000     0.2317 0.0000         True
+    abdomo_appearance 20.6410   0.0004     0.1858 0.0007         True
+              surgery 10.8414   0.0044     0.1904 0.0071         True
+    rectal_exam_feces 18.4068   0.0053     0.1754 0.0072         True
+   nasogastric_reflux 14.6788   0.0054     0.1567 0.0072         True
+              abdomen 19.1005   0.0143     0.1787 0.0176         True
+              cp_data  6.5801   0.0373     0.1483 0.0422         True
+                  age  6.4575   0.0396     0.1470 0.0422         True
+     nasogastric_tube  1.5262   0.8220     0.0505 0.8220        False
+
+======================================================================
+5. MUTUAL INFORMATION (все признаки)
+======================================================================
+
+Ранжирование признаков по mutual information:
+  lesion_1                            MI = 0.2483
+  hospital_number                     MI = 0.1638
+  pain                                MI = 0.1542
+  total_protein                       MI = 0.1247
+  abdomen                             MI = 0.1165
+  temp_of_extremities                 MI = 0.0990
+  packed_cell_volume                  MI = 0.0925
+  peristalsis                         MI = 0.0919
+  nasogastric_tube                    MI = 0.0881
+  pulse                               MI = 0.0867
+  mucous_membrane                     MI = 0.0716
+  surgical_lesion                     MI = 0.0664
+  peripheral_pulse                    MI = 0.0564
+  nasogastric_reflux                  MI = 0.0357
+  abdomo_appearance                   MI = 0.0352
+  nasogastric_reflux_ph               MI = 0.0324
+  lesion_2                            MI = 0.0312
+  capillary_refill_time               MI = 0.0298
+  abdomo_protein                      MI = 0.0191
+  abdominal_distention                MI = 0.0157
+  age                                 MI = 0.0119
+  lesion_3                            MI = 0.0101
+  surgery                             MI = 0.0000
+  rectal_temp                         MI = 0.0000
+  respiratory_rate                    MI = 0.0000
+  rectal_exam_feces                   MI = 0.0000
+  cp_data                             MI = 0.0000
+  [график сохранён: plots/06_mutual_information.png]
+
+======================================================================
+6. PCA (на числовых признаках)
+======================================================================
+
+Объяснённая дисперсия по компонентам:
+  PC1: 18.42%  (накопл. 18.42%)
+  PC2: 14.17%  (накопл. 32.59%)
+  PC3: 11.99%  (накопл. 44.58%)
+  PC4: 10.34%  (накопл. 54.92%)
+  PC5:  8.82%  (накопл. 63.74%)
+  PC6:  7.87%  (накопл. 71.61%)
+  PC7:  7.21%  (накопл. 78.82%)
+  PC8:  6.87%  (накопл. 85.68%)
+  PC9:  6.12%  (накопл. 91.80%)
+  PC10:  4.76%  (накопл. 96.56%)
+  ...
+
+Компонент для 80% дисперсии: 8
+Компонент для 90% дисперсии: 9
+  [график сохранён: plots/07_pca_scree.png]
+
+Загрузки первых трёх компонент (топ по |значению|):
+
+PC1:
+  pulse                          +0.519
+  respiratory_rate               +0.471
+  hospital_number                +0.406
+  total_protein                  -0.320
+  rectal_temp                    +0.318
+
+PC2:
+  total_protein                  +0.475
+  lesion_2                       +0.462
+  lesion_3                       +0.447
+  abdomo_protein                 -0.413
+  nasogastric_reflux_ph          -0.264
+
+PC3:
+  packed_cell_volume             +0.657
+  nasogastric_reflux_ph          -0.390
+  lesion_1                       -0.371
+  pulse                          +0.293
+  total_protein                  +0.222
+  [график сохранён: plots/08_pca_scatter.png]
+
+======================================================================
+7. КРАТКИЕ ВЫВОДЫ
+======================================================================
+
+Топ-5 признаков по Kruskal-Wallis (числовые):
+  packed_cell_volume             p_adj = 0.0000
+  pulse                          p_adj = 0.0000
+  total_protein                  p_adj = 0.0000
+  lesion_1                       p_adj = 0.0000
+  abdomo_protein                 p_adj = 0.0000
+
+Топ-5 признаков по chi2 (категориальные):
+  pain                           p_adj = 0.0000  Cramér's V = 0.335
+  surgical_lesion                p_adj = 0.0000  Cramér's V = 0.335
+  peripheral_pulse               p_adj = 0.0000  Cramér's V = 0.264
+  mucous_membrane                p_adj = 0.0000  Cramér's V = 0.281
+  temp_of_extremities            p_adj = 0.0000  Cramér's V = 0.254
+
+Топ-5 признаков по mutual information:
+  lesion_1                       MI = 0.2483
+  hospital_number                MI = 0.1638
+  pain                           MI = 0.1542
+  total_protein                  MI = 0.1247
+  abdomen                        MI = 0.1165
+
+PCA: 8 компонент объясняют 80% дисперсии
+
+======================================================================
+Отчёт сохранён: horse_colic_eda_stage2.txt
+Графики сохранены в папке: plots/
+======================================================================
