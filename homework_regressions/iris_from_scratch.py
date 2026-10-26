@@ -2,6 +2,8 @@ import numpy as np
 from scipy.special import softmax
 from sklearn.base import BaseEstimator, ClassifierMixin
 
+from LinearRegression import LinearRegression
+
 
 class LogisticRegression(BaseEstimator, ClassifierMixin):
     def __init__(self):
@@ -47,25 +49,6 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         y_pred = self.predict(X)
         return float(np.mean(y_pred == y))
 
-    def metrics(self, X, y):
-        """Базовые метрики: accuracy, precision_macro, recall_macro."""
-        y = np.asarray(y).ravel()
-        y_pred = self.predict(X)
-        classes = np.unique(y)
-        precisions, recalls = [], []
-        for c in classes:
-            tp = np.sum((y_pred == c) & (y == c))
-            fp = np.sum((y_pred == c) & (y != c))
-            fn = np.sum((y_pred != c) & (y == c))
-            precisions.append(tp / (tp + fp) if (tp + fp) else 0.0)
-            recalls.append(tp / (tp + fn) if (tp + fn) else 0.0)
-        return {
-            "accuracy": self.score(X, y),
-            "precision_macro": float(np.mean(precisions)),
-            "recall_macro": float(np.mean(recalls)),
-        }
-
-
 
 if __name__ == "__main__":
     from sklearn.datasets import load_iris
@@ -83,5 +66,6 @@ if __name__ == "__main__":
 
     model = LogisticRegression()
     model.fit(X_train_scaled, y_train, eta=0.5, max_iters=500, eps=1e-6)
+    y_pred = model.predict(X_test_scaled)
     print(f"Точность: {model.score(X_test_scaled, y_test):.4f}")
-    print(model.metrics(X_test_scaled, y_test))
+    print(LinearRegression.metrics(y_test, y_pred))

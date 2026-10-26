@@ -7,7 +7,7 @@ class Polynomial(LinearRegression):
     def __init__(self, degree=2):
         super().__init__()
         self.degree = degree
-        self.grid_scores_ = None  # {degree: r2_на_валидации}
+        self.grid_scores_ = None 
 
     def get_polynomial_combinations(self, X, n_features, max_degree):
         feature_indices = list(range(n_features))

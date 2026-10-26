@@ -33,19 +33,16 @@ class LinearRegression(BaseEstimator, RegressorMixin):
 
     def score(self, X, y):
         """R²."""
-        y = np.asarray(y).ravel()
-        y_pred = self.predict(X)
-        ss_res = np.sum((y - y_pred) ** 2)
-        ss_tot = np.sum((y - np.mean(y)) ** 2)
-        if ss_tot == 0:
-            return 0.0
-        return float(1 - ss_res / ss_tot)
+        return LinearRegression.metrics(y, self.predict(X))["r2"]
 
-    def metrics(self, X, y):
-        """Базовые метрики регрессии: mse, mae, r2."""
-        y = np.asarray(y).ravel()
-        y_pred = self.predict(X)
-        mse = float(np.mean((y - y_pred) ** 2))
-        mae = float(np.mean(np.abs(y - y_pred)))
-        r2 = self.score(X, y)
+    @staticmethod
+    def metrics(y_true, y_pred):
+        """Базовые метрики по истинным и предсказанным значениям: mse, mae, r2."""
+        y_true = np.asarray(y_true).ravel()
+        y_pred = np.asarray(y_pred).ravel()
+        mse = float(np.mean((y_true - y_pred) ** 2))
+        mae = float(np.mean(np.abs(y_true - y_pred)))
+        ss_res = np.sum((y_true - y_pred) ** 2)
+        ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
+        r2 = 0.0 if ss_tot == 0 else float(1 - ss_res / ss_tot)
         return {"mse": mse, "mae": mae, "r2": r2}

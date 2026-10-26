@@ -27,7 +27,7 @@ def test_linear_regression():
     model = LinearRegression()
     model.fit(X_train, y_train, eta=1e-4, max_iters=20000, eps=1e-3)
 
-    m = model.metrics(X_test, y_test)
+    m = LinearRegression.metrics(y_test, model.predict(X_test))
     assert set(m) == {"mse", "mae", "r2"}
     assert m["r2"] > 0.9, f"ожидали R² > 0.9, получили {m['r2']}"
     assert m["mse"] >= 0 and m["mae"] >= 0
@@ -43,7 +43,7 @@ def test_polynomial_regression():
     model = Polynomial(degree=2)
     model.fit(X_train, y_train, eta=0.05, max_iters=20000, eps=1e-4)
 
-    m = model.metrics(X_test, y_test)
+    m = LinearRegression.metrics(y_test, model.predict(X_test))
     assert set(m) == {"mse", "mae", "r2"}
     assert m["r2"] > 0.9, f"ожидали R² > 0.9, получили {m['r2']}"
 
@@ -67,8 +67,9 @@ def test_polynomial_degree_grid():
 
     assert model.grid_scores_ is not None
     assert set(model.grid_scores_) == {1, 2, 3, 4}
-    assert model.degree >= 2  # линейная степень хуже квадратичной
-    assert model.metrics(X_test, y_test)["r2"] > 0.9
+    assert model.degree >= 2
+    m = LinearRegression.metrics(y_test, model.predict(X_test))
+    assert m["r2"] > 0.9
 
 
 if __name__ == "__main__":
